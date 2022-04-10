@@ -1,0 +1,6 @@
+sqlalchemy
+vkbottle
+asyncpg
+psycopg2
+alembic
+python-dotenv

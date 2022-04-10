@@ -64,7 +64,6 @@ async def general_statistics_handler(message: Message):
     for likes, file, _ in top_nine_memes:
         memes.append(file)
         grades.append(likes)
-    print(memes)
     formatted_top = ""
     for idx, grade in enumerate(grades):
         formatted_top += f"{idx + 1} место {grade} лайков\n"
@@ -93,6 +92,5 @@ async def view_another_page(message: Message):
     formatted_statistics = f'Страница {curpage}\n{formatted_statistics}'
     await bl.state_dispenser.set(
         message.peer_id, PagingState.PAGINATION_STATE, curpage=curpage)
-    print(formatted_statistics)
 
     await message.answer(formatted_statistics, keyboard=ONTO_ANOTHER_PAGE)

@@ -10,6 +10,7 @@ class PagingState(BaseStateGroup):
     NO_PAGINATION_STATE = 0
     PAGINATION_STATE = 1
 
+
 class UploadState(BaseStateGroup):
     NO_UPLOAD_STATE = 0
     UPLOADING_STATE = 1
