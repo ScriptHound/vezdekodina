@@ -16,6 +16,12 @@ Write your DB credentials into .env and alembic.ini files. Check
 .env_example and alembic_example.ini files for help
 
 Step four:
+Run migrations
+```
+alembic upgrade head
+```
+
+Step five:
 Run your bot
 ```
 python main.py

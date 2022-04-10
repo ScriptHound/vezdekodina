@@ -27,7 +27,7 @@ class Meme(Base):
 
     def __init__(self, filepath) -> None:
         self.filepath = filepath
-    
+
     @classmethod
     def bulk_create(self, session, memes: List[Dict[str, str]]):
         """cards should be a list of dictionaries"""
@@ -46,7 +46,7 @@ class Likes(Base):
     __table_args__ = (
         UniqueConstraint('meme_id', 'user_vk_id', name='_meme_user_vk_id_uc'),
                      )
-    
+
     def __init__(self, meme_id: int, user_vk_id: int, is_liked: bool) -> None:
         self.meme_id = meme_id
         self.user_vk_id = user_vk_id
