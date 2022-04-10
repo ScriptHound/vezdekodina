@@ -32,24 +32,6 @@ async def handler(message: Message) -> str:
     return ans
 
 
-# legacy get_meme view i left it there in case something goes wrong
-# @bot.on.message(text=['Мем', "Скинь ещё"])
-# async def get_meme(message: Message):
-#     user = await bot.api.users.get(user_ids=[message.from_id])
-#     user = user[0]
-#     full_name = f'{user.first_name} {user.last_name}'
-#     user = await create_user_if_does_not_exist(engine, message.from_id, full_name)
-#     # meme_path = await select_random_meme(engine, message.from_id)
-#     meme_path = 'vezdekod_memes/atL_c3yflRw.jpg'
-#     meme = await PhotoMessageUploader(bot.api).upload(
-#         meme_path, peer_id=message.peer_id
-#     )
-#     print(meme)
-#     print(type(meme))
-#     await bot.state_dispenser.set(message.peer_id, MemeState.MEME_SENT, meme=meme_path)
-#     await message.answer(attachment=meme, keyboard=DO_YOU_LIKE_MEME)
-
-
 @bot.on.message(text=['Мем', "Скинь ещё", 'мем', 'Скинь мем'])
 async def get_meme(message: Message):
     user = await bot.api.users.get(user_ids=[message.from_id])
