@@ -1,7 +1,10 @@
+from string import Template
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from general_statistics_query import GRADES_OF_MEMES
 
 from models import Meme, User, Likes
 from db_init import engine
@@ -69,3 +72,17 @@ async def create_memes(meme_ids):
             meme = Meme(meme_id)
             session.add(meme)
         await session.commit()
+
+
+async def get_meme_grades(meme_db_id):
+    async_session = sessionmaker(
+            engine, expire_on_commit=False, class_=AsyncSession
+        )
+    async with async_session() as session:
+        query = Template(GRADES_OF_MEMES)
+        query = query.substitute({
+            'meme_db_id': meme_db_id
+        })
+        result = await session.execute(query)
+        result = result.first()
+        return result

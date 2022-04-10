@@ -35,7 +35,7 @@ async def how_long_do_you_code(message: Message):
 
 
 @bl.on.message(state=QuizStates.QUESTION_TWO)
-async def how_long_do_you_code(message: Message):
+async def which_is_your_speciality(message: Message):
     await bl.state_dispenser.set(message.peer_id, QuizStates.QUESTION_THREE)
     await message.answer(
         "Какова твоя специализация",
@@ -44,7 +44,7 @@ async def how_long_do_you_code(message: Message):
 
 
 @bl.on.message(state=QuizStates.QUESTION_THREE)
-async def how_long_do_you_code(message: Message):
+async def which_is_your_education(message: Message):
     await bl.state_dispenser.set(message.peer_id, QuizStates.QUESTION_FOUR)
     await message.answer(
         "Расскажи о своём образовании",
@@ -53,7 +53,7 @@ async def how_long_do_you_code(message: Message):
 
 
 @bl.on.message(state=QuizStates.QUESTION_FOUR)
-async def how_long_do_you_code(message: Message):
+async def which_color_do_you_like(message: Message):
     await bl.state_dispenser.set(message.peer_id, QuizStates.QUESTION_FIVE)
     await message.answer(
         "Выбери какой цвет тебе нравится больше",
@@ -63,7 +63,7 @@ async def how_long_do_you_code(message: Message):
 
 
 @bl.on.message(state=QuizStates.QUESTION_FIVE)
-async def how_long_do_you_code(message: Message):
+async def which_digit_do_you_like_more(message: Message):
     await bl.state_dispenser.set(message.peer_id, QuizStates.QUESTION_SIX)
     await message.answer(
         "Какая цифра тебе нравится больше?",
@@ -72,7 +72,7 @@ async def how_long_do_you_code(message: Message):
 
 
 @bl.on.message(state=QuizStates.QUESTION_SIX)
-async def how_long_do_you_code(message: Message):
+async def which_weather_do_you_like_more(message: Message):
     await bl.state_dispenser.set(message.peer_id, QuizStates.QUESTION_SEVEN)
     await message.answer(
         "Какая погода тебе нравится больше?",
@@ -81,15 +81,16 @@ async def how_long_do_you_code(message: Message):
 
 
 @bl.on.message(state=QuizStates.QUESTION_SEVEN)
-async def how_long_do_you_code(message: Message):
+async def which_work_type_do_you_like(message: Message):
     await bl.state_dispenser.set(message.peer_id, QuizStates.GREETING_STATE)
     await message.answer(
         "Поздравляю, последний вопрос. Какой вид трудоустройства тебе нравится больше?",
         keyboard=WHICH_WORK_TYPE_DO_YOU_LIKE
     )
 
+
 @bl.on.message(state=QuizStates.GREETING_STATE)
-async def how_long_do_you_code(message: Message):
+async def final_quiz_question(message: Message):
     await bl.state_dispenser.set(message.peer_id, QuizStates.QUIZ_COMPLETED)
     await message.answer(
         "Спасибо, что ответили на все вопросы!", keyboard=AFTER_QUIZ_KEYBOARD)

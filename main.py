@@ -11,7 +11,8 @@ from src.keyboards import (
 from src.memes_logic import (
     create_user_if_does_not_exist,
     select_random_meme,
-    create_memes)
+    create_memes,
+    get_meme_grades)
 from src.state_dispensers import MemeState, UploadState
 
 dotenv.load_dotenv()
@@ -26,7 +27,7 @@ for blueprint in blueprints:
 @bot.on.message(text=['Привет', 'привет'])
 async def handler(message: Message) -> str:
     ans = "Привет вездекодерам! Хочешь пройти небольшой квиз?"\
-        +"Тогда напиши /квиз. Ещё я умею кидать мемы! Напиши \"Мем\""
+        + "Тогда напиши /квиз. Ещё я умею кидать мемы! Напиши \"Мем\""
     print(message.attachments)
     return ans
 
@@ -56,8 +57,17 @@ async def get_meme(message: Message):
     full_name = f'{user.first_name} {user.last_name}'
     user = await create_user_if_does_not_exist(engine, message.from_id, full_name)
     meme_path, meme_id = await select_random_meme(engine, message.from_id)
+    grades = await get_meme_grades(meme_id)
+    dislikes, likes = 0, 0
+    if grades != [] and grades is not None:
+        _, dislikes, _, likes, _ = grades
+
+    formatted_grading = f'Лайков: {dislikes} дизлайков: {likes}'
     await bot.state_dispenser.set(message.peer_id, MemeState.MEME_SENT, meme=meme_path)
-    await message.answer(attachment=meme_path, keyboard=DO_YOU_LIKE_MEME)
+    await message.answer(
+        message=formatted_grading,
+        attachment=meme_path,
+        keyboard=DO_YOU_LIKE_MEME)
 
 
 @bot.on.message(text=['Загрузи'])
